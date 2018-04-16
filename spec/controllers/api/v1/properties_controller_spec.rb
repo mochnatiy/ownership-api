@@ -1,6 +1,6 @@
 RSpec.describe Api::V1::PropertiesController do
   describe 'GET index', type: :request do
-    context '' do
+    context 'when user have properties' do
       let!(:user) { create(:user, login: 'peter') }
       let!(:another_user) { create(:user, login: 'chris') }
 
@@ -24,12 +24,10 @@ RSpec.describe Api::V1::PropertiesController do
         expect(response.status).to eq(200)
       end
 
-      specify 'should return json with user\'s properties' do
-        success = JSON.parse(response.body).symbolize_keys[:success]
+      specify 'should return json with only user\'s properties' do
         properties = JSON.parse(response.body).symbolize_keys[:properties]
         properties = JSON.parse(properties)
 
-        expect(success).to be true
         expect(properties).to eql(
           [
             {
@@ -49,7 +47,7 @@ RSpec.describe Api::V1::PropertiesController do
   end
 
   describe 'POST create', type: :request do
-    context '' do
+    context 'if all data is valid' do
       let(:title) { 'beach' }
       let(:value) { 355 }
       let!(:user) { create(:user, login: 'ozzy') }
@@ -82,10 +80,7 @@ RSpec.describe Api::V1::PropertiesController do
 
       specify 'should return json with user_id' do
         expect(JSON.parse(response.body).symbolize_keys).to eq(
-          {
-            success: true,
-            property_id: @properties[0].id
-          }
+          { property_id: @properties[0].id }
         )
       end
     end

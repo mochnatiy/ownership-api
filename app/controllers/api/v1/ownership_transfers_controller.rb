@@ -3,12 +3,17 @@ module Api
     class OwnershipTransfersController < ApplicationController
       before_action :check_token
 
-      # POST /api/ownership_transfer/request
+      # POST /api/ownership_transfers/request_operation
+
+      # params:
+      # auth_key (string)
+      # recipient_login (string)
+      # property_id (integer)
       def request_operation
         recipient = User.find_by(login: params[:recipient_login])
 
         render status: 404, json: {
-          success: false, error: 'Recipient does not exist'
+          error: 'Recipient does not exist'
         } and return if recipient.nil?
 
         property = Property.find_by(
@@ -16,7 +21,6 @@ module Api
         )
 
         render status: 404, json: {
-          success: false,
           error: 'Property doesn\'t belongs to you or doesn\'t exist'
         } and return if property.nil?
 
@@ -27,15 +31,18 @@ module Api
             property: property
           )
 
-          render status: 200, json: {
-            success: true, transfer_key: request.transfer_key
-          }
+          render status: 200, json: { transfer_key: request.transfer_key }
         rescue StandardError => e
           render status: 422, json: { success: false, error: e.message }
         end
       end
 
-      # POST /api/ownership_transfer/complete
+      # POST /api/ownership_transfers/complete_operation
+
+      # params:
+      # auth_key (string)
+      # transfer_key (string)
+      # property_id (integer)
       def complete_operation
         transfer_request = OwnershipTransferRequest.find_by(
           transfer_key: params[:transfer_key]
@@ -43,7 +50,6 @@ module Api
 
         if transfer_request.nil? || transfer_request.recipient != current_user
           render status: 404, json: {
-            success: false,
             error: 'Invalid key or you don\'t have property to receive'
           } and return
         end
@@ -53,7 +59,7 @@ module Api
 
           render status: 200, json: { success: true }
         rescue StandardError => e
-          render status: 422, json: { success: false, error: e.message }
+          render status: 422, json: { error: e.message }
         end
       end
     end
