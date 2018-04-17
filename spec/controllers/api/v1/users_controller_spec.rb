@@ -25,10 +25,7 @@ RSpec.describe Api::V1::UsersController do
 
       specify 'should return json with user_id' do
         expect(JSON.parse(response.body).symbolize_keys).to eq(
-          {
-            success: true,
-            user_id: @users[0].id
-          }
+          { user_id: @users[0].id }
         )
       end
     end
@@ -58,10 +55,7 @@ RSpec.describe Api::V1::UsersController do
 
       specify 'should return json with error' do
         expect(JSON.parse(response.body).symbolize_keys).to eq(
-          {
-            success: false,
-            error: 'Login has already been taken'
-          }
+          { error: 'Login has already been taken' }
         )
       end
     end

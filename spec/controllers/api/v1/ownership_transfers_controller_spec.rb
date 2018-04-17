@@ -27,10 +27,7 @@ RSpec.describe Api::V1::OwnershipTransfersController do
 
       specify 'should return json with error' do
         expect(JSON.parse(response.body).symbolize_keys).to eq(
-          {
-            success: false,
-            error: 'Your session is expired, please authenticate'
-          }
+          { error: 'Your session is expired, please authenticate' }
         )
       end
     end
@@ -65,7 +62,6 @@ RSpec.describe Api::V1::OwnershipTransfersController do
 
       specify 'should return json with valid transfer_key' do
         expect(JSON.parse(response.body).symbolize_keys).to eql({
-          success: true,
           transfer_key: @transaction_request.transfer_key
         })
       end

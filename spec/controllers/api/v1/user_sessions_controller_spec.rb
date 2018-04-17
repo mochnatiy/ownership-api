@@ -24,10 +24,7 @@ RSpec.describe Api::V1::UserSessionsController do
 
       specify 'should resturn json with error message' do
         expect(JSON.parse(response.body).symbolize_keys).to eq(
-          {
-            success: false,
-            error: 'Invalid login or password'
-          }
+          { error: 'Invalid login or password' }
         )
       end
     end
@@ -61,10 +58,7 @@ RSpec.describe Api::V1::UserSessionsController do
 
         specify 'should return json with auth token' do
           expect(JSON.parse(response.body).symbolize_keys).to eq(
-            {
-              success: true,
-              auth_key: @user_session.auth_key
-            }
+            { auth_key: @user_session.auth_key }
           )
         end
       end
@@ -92,10 +86,7 @@ RSpec.describe Api::V1::UserSessionsController do
 
         specify 'should resturn json with error message' do
           expect(JSON.parse(response.body).symbolize_keys).to eq(
-            {
-              success: false,
-              error: 'Invalid login or password'
-            }
+            { error: 'Invalid login or password' }
           )
         end
       end
@@ -123,10 +114,7 @@ RSpec.describe Api::V1::UserSessionsController do
 
         specify 'should resturn json with error message' do
           expect(JSON.parse(response.body).symbolize_keys).to eq(
-            {
-              success: false,
-              error: 'Invalid login or password'
-            }
+            { error: 'Invalid login or password' }
           )
         end
       end
