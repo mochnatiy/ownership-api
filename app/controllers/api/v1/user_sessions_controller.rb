@@ -1,6 +1,8 @@
 module Api
   module V1
     class UserSessionsController < ApplicationController
+      respond_to :json
+
       # POST /api/authenticate
 
       # params:

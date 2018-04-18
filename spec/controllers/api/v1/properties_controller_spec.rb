@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe Api::V1::PropertiesController do
   describe 'GET index', type: :request do
     context 'when user have properties' do

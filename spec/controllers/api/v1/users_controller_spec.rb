@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe Api::V1::UsersController do
   describe 'POST create', type: :request do
     context 'when registering a new user' do

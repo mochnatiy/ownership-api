@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe Api::V1::UserSessionsController do
   describe 'POST create', type: :request do
 
