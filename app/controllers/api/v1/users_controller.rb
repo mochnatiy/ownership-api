@@ -1,6 +1,8 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      respond_to :json
+
       # POST /api/register.json
 
       # params:

@@ -1,6 +1,8 @@
 module Api
   module V1
     class OwnershipTransfersController < ApplicationController
+      respond_to :json
+
       before_action :check_token
 
       # POST /api/ownership_transfers/request_operation

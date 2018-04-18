@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe Api::V1::OwnershipTransfersController do
   describe 'POST request_operation', type: :request do
     let!(:initiator) { create(:user, login: 'bob', password: 'password1') }

@@ -1,6 +1,8 @@
 module Api
   module V1
     class PropertiesController < ApplicationController
+      respond_to :json
+
       before_action :check_token
 
       # GET /api/properties
